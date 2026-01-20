@@ -64,24 +64,35 @@ def feladat5():
     
     return db
 
-def feladat6():
+"""def feladat6():
+    #my shi
     mondatok = []
     
     no_enter = szoveg.strip()
     
-    no_pont = re.split("[.][?][!]", no_enter)
+    no_pont = re.split("[.?!]", no_enter)
     
-    return no_pont
+    return no_pont"""
+
+def feladat6_2():
+    mondatok = []
     
-"""    for mondat in no_pont:
-        if "?" in mondat:
-            no_kerdo = mondat.split("?")
-        
-        elif "!" in mondat:
-            no_felkialt = mondat.split("!")
-        
-        else:
-            mondatok.append(mondat)"""
+    szoveg2 = szoveg.strip().replace("\n", " ")
+    
+    j = 0
+    
+    for i in range (0, len(szoveg2)):
+        if szoveg2[i] == "." or szoveg2[i] == "?" or szoveg2[i] == "!":
+            mondatok.append(szoveg2[j:i+1].strip())
+            j = i+1
+            
+    max_i = 0
+    
+    for i in range (1, len(mondatok)):
+        if len(mondatok[i]) > len(mondatok[max_i]):
+            max_i = i
+
+    return mondatok[max_i]
 
 
 
@@ -95,14 +106,7 @@ try:
         file.write(f"1_2. feladat: {feladat1_2()} \n")
         file.write(f"4. feladat: {sorted(feladat4())} \n")
         file.write(f"5. feladat: {feladat5()}* fordul elő a szövegben a MI szó \n")
+        """file.write(f"6. feladat: {feladat6()} \n")"""
+        file.write(f"6_2. feladat: {feladat6_2()} \n")
 except IOError as hiba:
     print(hiba)
-
-
-print(feladat6())
-
-try:
-    with open("szoveg.txt", "w", encoding="utf-8") as sz:
-        file.write(f"6. feladat: {feladat6()} \n")
-except IOError as szar:
-    print(szar)
